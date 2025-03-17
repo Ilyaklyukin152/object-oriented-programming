@@ -1,21 +1,24 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.SimpleProduct;
 
 public class App {
     public static void main(String[] args) {
-        Product apple = new Product("Яблоко", 50);
-        Product potato = new Product("Картофель", 20);
-        Product buckwheat = new Product("Гречка", 80);
-        Product pasta = new Product("Макароны", 100);
-        Product salt = new Product("Соль", 10);
-        Product sugar = new Product("Сахар", 60);
-        Product orange = new Product("Апельсин", 140);
-        Product sausage = new Product("Колбаса", 250);
-        Product milk = new Product("Молоко", 90);
+        SimpleProduct apple = new SimpleProduct("Яблоко", 50);
+        SimpleProduct potato = new SimpleProduct("Картофель", 20);
+        FixPriceProduct buckwheat = new FixPriceProduct("Гречка");
+        DiscountedProduct pasta = new DiscountedProduct("Макароны", 100, 10);
+        SimpleProduct salt = new SimpleProduct("Соль", 10);
+        FixPriceProduct sugar = new FixPriceProduct("Сахар");
+        SimpleProduct orange = new SimpleProduct("Апельсин", 140);
+        DiscountedProduct sausage = new DiscountedProduct("Колбаса", 250, 15);
+        DiscountedProduct milk = new DiscountedProduct("Молоко", 90, 20);
 
         ProductBasket basket1 = new ProductBasket();
+        ProductBasket basket2 = new ProductBasket();
 
         System.out.println("Демонстрация методов");
 
@@ -25,6 +28,11 @@ public class App {
         basket1.addProduct(apple);
         basket1.addProduct(sugar);
         basket1.addProduct(orange);
+        basket2.addProduct(potato);
+        basket2.addProduct(buckwheat);
+        basket2.addProduct(pasta);
+        basket2.addProduct(salt);
+        basket2.addProduct(sausage);
 
         System.out.println("Добавление продукта в заполненную корзину, в которой нет свободного места.");
         basket1.addProduct(orange);
@@ -33,7 +41,10 @@ public class App {
         System.out.printf("Итого: %s рублей\n", basket1.fullPriceBasket());
 
         System.out.println("Печать содержимого корзины с несколькими товарами.");
+        System.out.println("Корзина 1");
         basket1.printContentBasket();
+        System.out.println("Корзина 2");
+        basket2.printContentBasket();
 
         System.out.println("Поиск товара, который есть в корзине.");
         System.out.println(basket1.nameProductBasket("Молоко"));
