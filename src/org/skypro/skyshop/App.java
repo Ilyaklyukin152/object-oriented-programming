@@ -1,9 +1,13 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.SearchEngine;
+
+import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
@@ -63,5 +67,27 @@ public class App {
 
         System.out.println("Поиск товара по имени в пустой корзине.");
         System.out.println(basket1.nameProductBasket("Яблоко"));
+
+        SearchEngine Searchable = new SearchEngine(15);
+        Searchable.addSearchable(apple);
+        Searchable.addSearchable(milk);
+        Searchable.addSearchable(apple);
+        Searchable.addSearchable(sugar);
+        Searchable.addSearchable(orange);
+        Searchable.addSearchable(potato);
+        Searchable.addSearchable(buckwheat);
+        Searchable.addSearchable(pasta);
+        Searchable.addSearchable(salt);
+        Searchable.addSearchable(sausage);
+        Article properMilk = new Article("Молоко", "Хорошее молоко должно быть жирным");
+        Article ironApple = new Article("Яблоко", "Срез настоящего яблока быстро ржавеет");
+        Searchable.addSearchable(properMilk);
+        Searchable.addSearchable(ironApple);
+        System.out.println(properMilk.getStringRepresentation());
+        System.out.println(ironApple.getStringRepresentation());
+        System.out.println(apple.getStringRepresentation());
+        System.out.println(Arrays.toString(Searchable.search("Яблоко")));
+        System.out.println(Arrays.toString(Searchable.search("Молоко")));
     }
+
 }
