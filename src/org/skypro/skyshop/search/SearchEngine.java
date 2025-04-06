@@ -6,7 +6,7 @@ public class SearchEngine {
     public Searchable[] search(String string) {
         int i = 0;
         Searchable[] search = new Searchable[5];
-        for (org.skypro.skyshop.search.Searchable searchable : Searchable) {
+        for (Searchable searchable : Searchable) {
             if (searchable != null && searchable.searchTerm().contains(string) && i < 5) {
                 search[i] = searchable;
                 i++;
@@ -22,6 +22,38 @@ public class SearchEngine {
                 break;
             }
         }
+    }
+
+    public Searchable findBestMatch(String string) throws BestResultNotFound {
+        Searchable bestMatch = null;
+        int maxCount = 0;
+
+        for (Searchable searchable : Searchable) {
+            if (searchable != null) {
+                int count = countRepetition(searchable.searchTerm().toLowerCase(), string.toLowerCase());
+                if (count > maxCount) {
+                    maxCount = count;
+                    bestMatch = searchable;
+                }
+            }
+        }
+
+        if (bestMatch == null) {
+            throw new BestResultNotFound("Не найдено ни одного результата поиска: " + string);
+        }
+        return bestMatch;
+    }
+
+    private int countRepetition(String str, String subStr) {
+        int count = 0;
+        int index = 0;
+        index = str.indexOf(subStr, index);
+        while (index != -1) {
+            count++;
+            index += subStr.length();
+            index = str.indexOf(subStr, index);
+        }
+        return count;
     }
 
     public SearchEngine(int size) {

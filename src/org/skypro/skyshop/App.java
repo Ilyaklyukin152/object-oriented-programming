@@ -6,6 +6,7 @@ import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.BestResultNotFound;
 
 import java.util.Arrays;
 
@@ -81,13 +82,47 @@ public class App {
         Searchable.addSearchable(sausage);
         Article properMilk = new Article("Молоко", "Хорошее молоко должно быть жирным");
         Article ironApple = new Article("Яблоко", "Срез настоящего яблока быстро ржавеет");
+        Article culinaryApple = new Article("Кулинарное яблоко", "Яблоко — универсальный ингредиент в кулинарии. " +
+                "Его можно использовать для приготовления салатов, выпечки, или просто наслаждаться свежим яблоком. " +
+                "Яблоко также идеально подходит для приготовления соков и компотов. " +
+                "Вкусное яблоко всегда будет хорошим выбором для любого блюда");
         Searchable.addSearchable(properMilk);
         Searchable.addSearchable(ironApple);
+        Searchable.addSearchable(culinaryApple);
         System.out.println(properMilk.getStringRepresentation());
         System.out.println(ironApple.getStringRepresentation());
         System.out.println(apple.getStringRepresentation());
         System.out.println(Arrays.toString(Searchable.search("Яблоко")));
         System.out.println(Arrays.toString(Searchable.search("Молоко")));
+
+        System.out.println("Демонстрация исключений");
+        try {
+            SimpleProduct emptyName = new SimpleProduct(" ", 15);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка создания продукта: " + e.getMessage());
+        }
+        try {
+            DiscountedProduct kefir = new DiscountedProduct("Кефир", 80, 120);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка создания продукта: " + e.getMessage());
+        }
+        try {
+            SimpleProduct banana = new SimpleProduct("Банан", 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка создания продукта: " + e.getMessage());
+        }
+        try {
+            System.out.println("Лучший результат поиска: " + Searchable.findBestMatch("Яблоко"));
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка поиска: " + e.getMessage());
+        }
+        try {
+            System.out.println("Лучший результат поиска: " + Searchable.findBestMatch("Томат"));
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка поиска: " + e.getMessage());
+        } finally {
+            System.out.println("Демонстрация завершена");
+        }
     }
 
 }
