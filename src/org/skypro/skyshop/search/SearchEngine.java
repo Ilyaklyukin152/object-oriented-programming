@@ -1,27 +1,24 @@
 package org.skypro.skyshop.search;
 
-public class SearchEngine {
-    private final Searchable[] Searchable;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Searchable[] search(String string) {
-        int i = 0;
-        Searchable[] search = new Searchable[5];
+public class SearchEngine {
+    private ArrayList<Searchable> Searchable = new ArrayList<>();
+
+    public ArrayList<Searchable> search(String string) {
+        ArrayList<Searchable> search = new ArrayList<>();
         for (Searchable searchable : Searchable) {
-            if (searchable != null && searchable.searchTerm().contains(string) && i < 5) {
-                search[i] = searchable;
-                i++;
+            if (searchable.searchTerm().contains(string)) {
+                search.add(searchable);
             }
         }
+
         return search;
     }
 
     public void addSearchable(Searchable searchable) {
-        for (int i = 0; i < Searchable.length; i++) {
-            if (Searchable[i] == null) {
-                Searchable[i] = searchable;
-                break;
-            }
-        }
+        Searchable.add(searchable);
     }
 
     public Searchable findBestMatch(String string) throws BestResultNotFound {
@@ -29,12 +26,10 @@ public class SearchEngine {
         int maxCount = 0;
 
         for (Searchable searchable : Searchable) {
-            if (searchable != null) {
-                int count = countRepetition(searchable.searchTerm().toLowerCase(), string.toLowerCase());
-                if (count > maxCount) {
-                    maxCount = count;
-                    bestMatch = searchable;
-                }
+            int count = countRepetition(searchable.searchTerm().toLowerCase(), string.toLowerCase());
+            if (count > maxCount) {
+                maxCount = count;
+                bestMatch = searchable;
             }
         }
 
@@ -55,8 +50,6 @@ public class SearchEngine {
         }
         return count;
     }
-
-    public SearchEngine(int size) {
-        this.Searchable = new Searchable[size];
-    }
 }
+
+
