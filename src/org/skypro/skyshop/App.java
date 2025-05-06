@@ -127,7 +127,7 @@ public class App {
             System.out.println("Демонстрация завершена");
         }
 
-        System.out.println("Демонстрация листов");
+        System.out.println("Демонстрация листов(мапов)");
         basket2.printContentBasket();
         basket2.addProduct(sausage);
         basket2.addProduct(sausage);
