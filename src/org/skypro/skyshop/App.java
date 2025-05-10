@@ -83,8 +83,8 @@ public class App {
         Searchable.addSearchable(pasta);
         Searchable.addSearchable(salt);
         Searchable.addSearchable(sausage);
-        Article properMilk = new Article("Молоко", "Хорошее молоко должно быть жирным");
-        Article ironApple = new Article("Яблоко", "Срез настоящего яблока быстро ржавеет");
+        Article properMilk = new Article("Хорошее молоко", "Хорошее молоко должно быть жирным");
+        Article ironApple = new Article("Настоящее яблоко", "Срез настоящего яблока быстро ржавеет");
         Article culinaryApple = new Article("Кулинарное яблоко", "Яблоко — универсальный ингредиент в кулинарии. " +
                 "Его можно использовать для приготовления салатов, выпечки, или просто наслаждаться свежим яблоком. " +
                 "Яблоко также идеально подходит для приготовления соков и компотов. " +
