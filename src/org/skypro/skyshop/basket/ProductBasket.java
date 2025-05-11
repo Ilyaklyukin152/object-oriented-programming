@@ -6,7 +6,7 @@ import java.util.*;
 
 
 public class ProductBasket {
-    private final Map<String, List<Product>> productBasket = new TreeMap<>();
+    private final Map<String, List<Product>> productBasket = new HashMap<>();
 
     public void addProduct(Product product) {
         productBasket.computeIfAbsent(product.getProductName(), p -> new ArrayList<>()).add(product);
