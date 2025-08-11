@@ -1,18 +1,15 @@
 package org.skypro.skyshop.search;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchEngine {
     private final Set<Searchable> Searchable = new HashSet<>();
 
     public Set<Searchable> search(String keyWord) {
-        Set<Searchable> search = new TreeSet<>(new SearchableComparator());
-        for (Searchable searchable : Searchable) {
-            if (searchable.searchTerm().toLowerCase().contains(keyWord.toLowerCase())) {
-                search.add(searchable);
-            }
-        }
-        return search;
+        return Searchable.stream()
+                .filter(s -> s.searchTerm().toLowerCase().contains(keyWord.toLowerCase()))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(new SearchableComparator())));
     }
 
     public void addSearchable(Searchable searchable) {
